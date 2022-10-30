@@ -1,0 +1,35 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.5'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies { //여기에 프로젝트 생성을 위한 각종 필요 '라이브러리'들 추가함
+	 		   //eg) 'web서비스', 'mustache', 'JPA', 'h2 DB' 등등..
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-mustache'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	runtimeOnly 'com.h2database:h2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//롬복 추가(코드를 간소화시켜주는 라이브러리)
+	//1.타이핑으로 코드 넣고, 이후 우측 상단에 '새로고침(코끼리 모양)' 눌러주기
+	//2.이후, 롬복 플러그인 설치
+	//--> 롬복을 통한 리팩토링 대상 객체
+	//(1)dto 객체, (2)entity 객체
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

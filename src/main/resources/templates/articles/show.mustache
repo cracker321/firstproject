@@ -1,0 +1,44 @@
+<!--'개별 게시글의 상세 내역(게시판에서 개별 게시글 누르면 들어가지는 개별 게시글 내용)' 뷰 페이지-->
+
+<!--'컨트롤러 ArticleController의 모델 객체'에 등록된 데이터('article')는 여기 '뷰'로 가져올 때 아래처럼 '#'을 붙여줘서 가져올 수 있다   -->
+<!-- '모델 객체에 등록된 article'은 아래에서 '#article'로 시작되고, 저~ 아래 '/article'에서 끝남
+ 즉, 아래 범위 안에서 'url 변수 id'를 자유롭게 사용할 수 있음-->
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#article}}
+        <tr>
+            <th>{{id}}<th>
+            <td>{{title}}</td>
+            <td>{{content}}</td>
+        </tr>
+    {{/article}}
+    </tbody>
+</table>
+
+
+<!--'a'태그의 '속성 href'는 '요청을 보낼(다른 링크로 사용자를 넘겨줄) 링크 주소를 가지고 있음'. 즉, '다른 링크로 넘겨주는 역할'을 하는 태그임.
+이 태그에 속성값을 입력해줌으로써,
+1.'화면 www.localhost:9090/articles/{id}'에서, 'Edit' 탭이 보이고,
+2.그 'Edit'을 누르면, 'www.localhost:9090/articles'로 '다시 돌려보내줘서' '게시판 목록' 화면으로 돌아온다.
+-->
+<a href="/articles/{{article.id}}/edit" class="btn btn-primary">Edit</a>
+<a href="/articles/{{article.id}}/delete" class="btn btn-danger">Delete</a>
+
+
+
+<!--'a'태그의 '속성 href'는 '요청을 보낼(다른 링크로 사용자를 넘겨줄) 링크 주소를 가지고 있음'. 즉, '다른 링크로 넘겨주는 역할'을 하는 태그임.
+이 태그에 속성값을 입력해줌으로써,
+1.'화면 www.localhost:9090/articles/{id}'에서, 'Go to Article List' 탭이 보이고,
+2.그 'Go to Article List'을 누르면, 'www.localhost:9090/articles'로 '다시 돌려보내줘서' '게시판 목록' 화면으로 돌아온다.
+-->
+<a href="/articles">Go to Article List</a>
+
+{{>layouts/footer}}

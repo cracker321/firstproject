@@ -1,0 +1,44 @@
+<!--게시판 전체(게시글 목록) 뷰 페이지-->
+
+
+{{#msg}}
+<!--아래 구간에 'msg'라는 '등록된 데이터'가 있다고 한다면, 아래 로직을 따라 출력하라-->
+<div class="alert alert-primary alert-dismissible">
+    {{msg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+{{/msg}}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+    </tr>
+    </thead>
+    <tbody>
+<!-- '변수 articleList'처럼, '여러 데이터들의 묶음'일 경우에는, 아래 변수 구간에 있는 내용들이 반복적으로 실행됨. 마치 'for문'처럼  -->
+    {{#articleList}}
+        <tr>
+            <th>{{id}}<th>
+            <td><a href="/articles/{{id}}">{{title}}</a></td>
+            <td>{{content}}</td>
+        </tr>
+    {{/articleList}}
+    </tbody>
+</table>
+
+
+
+<!--
+'a'태그의 '속성 href'는 '요청을 보낼(다른 링크로 사용자를 넘겨줄) 링크 주소를 가지고 있음'. 즉, '다른 링크로 넘겨주는 역할'을 하는 태그임.
+이것을 입력해줌으로써,
+1.'www.localhost:9090/articles'를 클릭하면, 'New Article' 탭이 보이고,
+2.그 'New Article'을 누르면, 'www.localhost:9090/articles/new'로 넘어가서 글 작성 가능해진다
+-->
+<a href="/articles/new">New Article</a>>
+
+
+{{>layouts/footer}}

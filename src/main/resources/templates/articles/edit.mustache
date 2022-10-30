@@ -1,0 +1,73 @@
+<!--'게시글 수정'관련 뷰 페이지-->
+
+{{#article}}
+
+<form class="container" action="/articles/update" method="post">
+    <!--
+        사용자가 여기 '뷰 edit.mustache'에서 무언가를 입력하고 'submit'을 누른다면, 아래의
+        (1)action="/articles/update"  (사용자에게 무슨 화면을 보여줄지(URL을 어디로 보내줄지))
+        (2)method="post" 방식  (어떻게 보여줄지 'CRUD'의 'Update(수정)' = 'HTTP'의 'PUT / PATCH(수정)')
+        //다만, 'form 태그 자체'가 'HTTP의 'GET(데이터 조회. @GetMapping)'과 'POST(데이터 생성. @PostMapping)''만 지원하기 때문에,
+        //여기서는, 'PUT(데이터 수정. @PutMapping)' 또는 'PATCH(데이터 수정. @PatchMapping)' 방식이 아니라,
+        //'임시로' 'POST(데이터 생성. @PostMapping)' 방식을 사용할 예정.
+        로직을 통해서,
+        이제 사용자에게 'http://localhost:9090/articles/update' 를 보여준다.
+    -->
+    <div class="mb-3">
+        <label class="form-label">title</label>
+
+<!--데이터를 보여주는 공간1: 'input 태그'-->
+
+        <input type="text" class="form-control" name="title" value="{{title}}">
+<!--
+원래는 value="{article.title}" (*대괄호는 두 쌍)이어야 하는데, 밑에 value="{article.content}" 의 'article' 등
+계속 반복되어 사용되기 때문에, 저~ 위에서 '{#article} ~ {/article}'을 선언해줌으로써, 그 범위 안에서는 'article'을 생략하여
+자유롭게 'article.title' 대신 'title'이라고 사용 가능
+-->
+
+        <input name="id" type="hidden" value="{{id}}"/>
+<!--
+'어느 id값을 변경할지'에 대한 정보
+'article'에 있는 'id값'을 '숨겨서(hidden)' 던져주는 역할
+-->
+
+
+
+        <!--'dto 객체'의 변수1 'title' 입력 ('name="content")     -->
+    </div>
+    <div class="mb-3">
+        <label class="form-label">content</label>
+<!--데이터를 보여주는 공간2: 'textarea 태그'-->
+        <textarea class="form-control" rows="3" name="content" value="{{content}}"></textarea>
+<!--
+원래는 value="{article.title}" (*대괄호는 두 쌍)이어야 하는데, 위에 value="{content}" 의 'article' 등
+계속 반복되어 사용되기 때문에, 저~ 위에서 '{#article} ~ {/article}'을 선언해줌으로써, 그 범위 안에서는 'article'을 생략하여
+자유롭게 'article.content' 대신 'title'이라고 사용 가능
+-->
+
+
+        <!--'dto 객체'의 변수2 'content' 입력 ('name="content")   -->
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+    <!--
+    'a'태그의 '속성 href'는 '요청을 보낼(다른 링크로 사용자를 넘겨줄) 링크 주소를 가지고 있음'. 즉, '다른 링크로 넘겨주는 역할'을 하는 태그임.
+    이 태그에 속성값을 입력해줌으로써,
+    1.'화면 www.localhost:9090/articles/edit'에서, 'Redirect(Back) Article' 탭이 보이고,
+    2.그 'Redirect Article'을 누르면, 'www.localhost:9090/articles'로 '다시 돌려보내줘서' '게시판 목록' 화면으로 돌아온다.
+    -->
+    <a href="/articles/{{id}}"/>Redirect(Back) Article</a>
+
+<!--
+원래는 < a href="/articles/{article.id}/ > (*대괄호는 두 쌍)이어야 하는데, 위에 value="{content}" 의 'article' 등
+계속 반복되어 사용되기 때문에, 저~ 위에서 '{#article} ~ {/article}'을 선언해줌으로써, 그 범위 안에서는 'article'을 생략하여
+자유롭게 'article.id' 대신 'id'이라고 사용 가능
+-->
+
+
+</form>
+
+{{/article}}
+
+{{>layouts/footer}}
