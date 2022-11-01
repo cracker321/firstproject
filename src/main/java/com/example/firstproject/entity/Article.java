@@ -20,8 +20,11 @@ public class Article {
 
     //'대푯값 지정(id)'. 사람으로 따지면 '주민등록번호'임. '제목'과 '이름'이 같은 여러 데이터가 있을 수 있고,
     //그 데이터들 사이에서 이 데이터를 정확히 구분짓기 위해 보통 아래처럼 설정해둠
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 이제 db가 알아서 'id값'을 '자동으로 생성'해주는 어노테이션
+                                                        // 개별 데이터값은 각각의 고유한 'id값'이 있고,
+                                                        // 이 'id값'의 번호는 절대 중복되어서는 안된다!
     private Long id;
 
     //'@Column'을 붙여주어야, 이제 아래 핃드를 'DB에서 관리하는 컬럼'으로 db에서 인식하게 됨
