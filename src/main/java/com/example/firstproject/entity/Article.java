@@ -4,6 +4,14 @@ import lombok.*;
 
 import javax.persistence.*;
 
+//https://wikidocs.net/161165
+//https://jobc.tistory.com/120
+//https://doorbw.tistory.com/227
+
+
+//@Entity: 데이터베이스에 저장하기 위해 사용자가 정의한 클래스. '객체' 그 자체. 'DB 테이블'과 '매핑'되는 '자바 클래스'.
+//일반적으로, 'DB에서의 Table들을 객체화시킨 것'.
+//'질문'과 '답변'을 할 수 있는 게시판 서비스를 만드려면, '질문'과 '답변'에 해당하는 'entity'가 있어야 함.
 
 //'@Entity'를 붙여주어야, 이제 DB가 이 'entity 객체'를 인식하여 db에 저장시켜줄 수 있게 됨
 //'Entity 객체' 내용 자체는 'dto 객체' 내용과 거의 유사함
@@ -19,8 +27,9 @@ public class Article {
 
 
     //'대푯값 지정(id)'. 사람으로 따지면 '주민등록번호'임. '제목'과 '이름'이 같은 여러 데이터가 있을 수 있고,
-    //그 데이터들 사이에서 이 데이터를 정확히 구분짓기 위해 보통 아래처럼 설정해둠
-
+    //그 데이터들 사이에서 이 데이터를 정확히 구분짓기 위해 보통 아래처럼 설정해둠.
+    //즉, 엔티티를 유일하게 구분할 수 있는 속성임.
+    //즉, primary key를 가지는 변수를 선언하는 것을 뜻함.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 이제 db가 알아서 'id값'을 '자동으로 생성'해주는 어노테이션
                                                         // 개별 데이터값은 각각의 고유한 'id값'이 있고,
@@ -28,6 +37,7 @@ public class Article {
     private Long id;
 
     //'@Column'을 붙여주어야, 이제 아래 핃드를 'DB에서 관리하는 컬럼'으로 db에서 인식하게 됨
+    //기본적으로, '여기에서의 변수명'과 일치하는 'DB에서의 칼럼'을 '매핑'한다.
     @Column
     private String title;
 

@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -196,8 +197,8 @@ public class ArticleController {
 
 
         //2.'Entity 객체'를 'DB'에 전달하여 저장시키기
-        //순서 2-(1): 'repository'를 통해서, DB에서 기존 데이터를 가져온다. 'repository'가 '자동으로 제공하는 메소드 findById'를 활용하여,
-        //       '변환된 Entity 객체'에 'getter 메소드'를 활용하여 id값'을 집어넣음
+        //순서 2-(1): 'repository'를 통해서, DB에서 기존 데이터를 가져온다. 'repository'가 '자동으로 제공하는 메소드 findById'를
+        // 활용하여, '변환된 Entity 객체'에 'getter 메소드'를 활용하여 id값'을 집어넣음
         Article target = articleRepository.findById(articleEntity.getId()).orElse(null);
         //또는, Optional<Article> target = articleRepository.findById(articleEntity.getId()); 로 적어줘도 됨
         
@@ -229,7 +230,7 @@ public class ArticleController {
     }
 
 
-    @GetMapping("/articles/{id}/delete")
+    @DeleteMapping("/articles/{id}/delete")
     public String delete(@PathVariable Long id, RedirectAttributes rttr){
         log.info("삭제 요청이 들어왔습니다"); //아직 화면에 나타낼 로직을 여기에 작성하진 않은 상태에서, 아래 콘솔창에 일단 '로그'라도 맞게 입력되는지
                                           //여부를 파악하기 위해서 작성함. 즉, 일단 '뷰 show'에 관련 코드 작성했으니,
