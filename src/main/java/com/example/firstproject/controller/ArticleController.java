@@ -1,7 +1,7 @@
 package com.example.firstproject.controller;
 
 
-import com.example.firstproject.dto.ArticleForm;
+import com.example.firstproject.dto.ArticleDto;
 import com.example.firstproject.entity.Article;
 import com.example.firstproject.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -41,12 +41,12 @@ public class ArticleController {
     //2.'입력된 데이터'의 최종 목적지는 '컨트롤러'이기에, 여기 아래에 해당 내용 작성하되, 일단 순서는  'dto 객체'로 넘어오고
     //3.'dto 객체'에 해당 내용 적어서 다시 '컨트롤러(여기)'로 넘어옴
     @PostMapping("/articles/create") //'뷰 new의 폼 태그'에서의 'action'에 적힌 URL주소.  + '뷰 new'는 'Post 방식'
-    public String createArticle(ArticleForm form) { //'form 태그(='뷰 new'의 'action="/articles/create" method="post"')
+    public String createArticle(ArticleDto articleDto) { //'form 태그(='뷰 new'의 'action="/articles/create" method="post"')
                                                     // 로부터 넘어온 데이터는 다음처럼
                                                     // '매개변수'로 'dto 객체 타입'의 'form'을 넣어줌(선언해줌)
 
 
-        log.info(form.toString());
+        log.info(articleDto.toString());
         /* 'form 태그'로부터 데이터를 잘 받아왔는지 여부의 확인은 --> 'log.info(article.toString)'으로 써야 함
         System.out.println(form.toString()); //
         */
@@ -58,7 +58,7 @@ public class ArticleController {
         //==========================================================================================================
 
         //< 1.DTO를 'Entity'로 변환시키고, 이후 >
-        Article article = form.toEntity();
+        Article article = articleDto.toEntity();
 
         log.info(article.toString());
         /* 잘 변환됐는지 여부의 확인은 --> 'log.info(article.toString)'으로 써야 함
@@ -183,16 +183,16 @@ public class ArticleController {
     @PostMapping("/articles/update")  //원래는 'CRUD'의 '수정 Update'이기 때문에, 'HTTP의 'PATCH(데이터 수정)'에 해당하는
                                         //'@PatchMapping()'을 넣어줘야 하는데, 'form 태그 자체'가 '@GetMapping'과 '@PostMapping'만
                                         //지원하기 때문에 '임시로 어쩔 수 없이' '@PostMapping'을 사용했음
-    public String update(ArticleForm form){ //'form 태그(='뷰 edit'의 'action="/articles/update" method="post"')
+    public String update(ArticleDto articleDto){ //'form 태그(='뷰 edit'의 'action="/articles/update" method="post"')
                                             //로부터 넘어온 데이터는 다음처럼
                                             //'매개변수'로 'dto 객체 타입'의 'form'을 넣어줌(선언해줌)
 
-        log.info(form.toString()); //데이터가 잘 전달되었는지 여부를 파악해주는 메소드
+        log.info(articleDto.toString()); //데이터가 잘 전달되었는지 여부를 파악해주는 메소드
 
         //1.'컨트롤러'가 'form 태그(='뷰 edit'의 'action="/articles/update" method="post"')'로부터 받아온 데이터를 DB에 저장하기
         //  즉, 'Dto 객체'를 'Entity 객체'로 변환시키기
         //(1)'Dto 객체를 관리하는 클래스 ArticleForm'의 '메소드 toEntity'를 통해 'Dto 객체'를 'Entity 객체'로 변환시킨다.
-        Article articleEntity = form.toEntity();
+        Article articleEntity = articleDto.toEntity();
         log.info(articleEntity.toString());
 
 

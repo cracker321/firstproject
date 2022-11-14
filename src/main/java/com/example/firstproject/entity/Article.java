@@ -30,7 +30,7 @@ public class Article {
     //그 데이터들 사이에서 이 데이터를 정확히 구분짓기 위해 보통 아래처럼 설정해둠.
     //즉, 엔티티를 유일하게 구분할 수 있는 속성임.
     //즉, primary key를 가지는 변수를 선언하는 것을 뜻함.
-    @Id
+    @Id //자기 자신의 '게시글 번호' = PK(Primary Key)
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 이제 db가 알아서 'id값'을 '자동으로 생성'해주는 어노테이션
                                                         // 개별 데이터값은 각각의 고유한 'id값'이 있고,
                                                         // 이 'id값'의 번호는 절대 중복되어서는 안된다!
@@ -43,6 +43,18 @@ public class Article {
 
     @Column
     private String content;
+
+
+    public void patch(Article article){ //19강 23:00~
+        if(article.title != null) {//'사용자'가 '일부만 변경된 게시글' 데이터를 dto 형식으로 컨트롤러에게 보냈는데,
+                                   //그 데이터 속성(id, title, content) 중에서 'title'은 정상적으로 포함되어 있다면,
+                                   //그 title은 정상적으로 여기에 넣고
+            this.title = article.title;
+        }
+        if(article.content != null){ // "       "       "
+            this.content = article.content; // 그 content는 정상적으로 여기에 넣으면 된다
+        }
+    }
 
 
     //'게터', '세터'를 아래처럼 추가해줄 수 있으나, 위에서 '롬복'을 통해서 필요한 모든 '게터', 세터'들을 자동 생성시켜줬음

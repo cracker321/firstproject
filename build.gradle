@@ -18,6 +18,7 @@ dependencies { //여기에 프로젝트 생성을 위한 각종 필요 '라이�
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'mysql:mysql-connector-java'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	//롬복 추가(코드를 간소화시켜주는 라이브러리)

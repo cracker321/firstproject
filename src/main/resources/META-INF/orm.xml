@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--구글링 키워드로 'orm native query orm.xml example' 등으로 검색해서, 아래 단락들 복사해서 여기에 붙여넣기-->
+
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm
+                                     https://jakarta.ee/xml/ns/persistence/orm/orm_3_0.xsd"
+                 version="3.0">
+
+<!--'name="Comment.findByNickname"': '리포지터리 Comment의 메소드 findByNickname'에게 명령하여 -->
+<!--'reuslt-class="com.example.firstproject.~': 저~ 아래 쿼리문을 다 수행한 후, '리턴값의 타입'은 'Comment 엔티티'로 반환하는 것임-->
+    <named-native-query
+            name="Comment.findByNickname"
+            result-class="com.example.firstproject.entity.Comment">
+        <query>
+<!--아래와 같은 쿼리문을 실행할 것이다 라고 명령하는 것. '리포지터리 Comment의 메소드 findByArticleId'가 '@Query'를 통해
+직접 'repository'에 직접 쿼리문 작성하여 수행시켰다면, 이 '메소드 findByNickanme'은 이처럼  'xml 파일'에 이렇게 작성하여
+실행시켜줌. 쿼리문을 실행시키는 서로 다른 방법일 뿐임.-->
+            <![CDATA[
+                SELECT
+                    *
+                FROM
+                    comment
+                WHERE
+                    nickname = :nickname
+            ]]>
+        </query>
+    </named-native-query>
+</entity-mappings>

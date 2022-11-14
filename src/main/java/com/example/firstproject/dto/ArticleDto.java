@@ -3,7 +3,9 @@ package com.example.firstproject.dto;
 
 import com.example.firstproject.entity.Article;
 import lombok.*;
-import org.springframework.web.bind.annotation.GetMapping;
+
+//'사용자'가 전달한 '데이터'를 'dto 형식'으로 'controller'가 받는 것임
+//즉, 사용자가 전달한 데이터가 'dto'에 담겨지는 것임. 즉, 'dto'는 '사용자가 전달한 데이터 덩어리' 그 자체임.
 
 //'dto 객체'는 'form 데이터'를 받아서 '컨트롤러'에 전달해 줄 '그릇'
 //'form 태그'에서 '3개의 데이터'를 던졌으니, 'dto 객체'에도 '3개의 변수'가 있어야 함
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @ToString //'롬복'
 @Getter //'롬복'
 @Setter //'롬복'
-public class ArticleForm {
+public class ArticleDto {
 
     private Long id;
     private String title;
@@ -21,7 +23,7 @@ public class ArticleForm {
 
     //< '롬복'을 통해 저~ 위에 '@AllArgsConstructor'를 붙여주면, 아래 '생성자 만드는 과정'은 없애줄 수 있음 >
     /*
-    public ArticleForm(String title, String content) { //'생성한 2개의 변수'에 대한 '생성자'를 만들어줌. 마우스 우클릭 -> Generator
+    public ArticleDto(String title, String content) { //'생성한 2개의 변수'에 대한 '생성자'를 만들어줌. 마우스 우클릭 -> Generator
         this.title = title;
         this.content = content;
     }
@@ -45,6 +47,7 @@ public class ArticleForm {
     //'entity 객체'의 '해당 생성자'는 매개변수로 (Long id, String title, String content)를 받고 있기 때문에,
     //아래에도 매개변수에 그것을 동일하게 넣어줌
     public Article toEntity() {
+
         return new Article(id, title, content);
         //'메소드 toEntity'가 'Article 타입'이기 때문에, 'Article'을 반환해줌
     }
