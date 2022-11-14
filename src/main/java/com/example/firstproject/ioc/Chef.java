@@ -2,7 +2,8 @@ package com.example.firstproject.ioc;
 
 import org.springframework.stereotype.Component;
 
-@Component //이 '클래스 Chef'를 '클래스 TestChef'에 DI시키기 위해, 이 '클래스 Chef'를 '스프링 IoC 컨테이너'에 '등록'시키려면,
+@Component //이 '클래스 Chef'를 '클래스 TestChef'에서 사용하기(DI시키기)위해,
+           // 이 '클래스 Chef'를 '스프링 IoC 컨테이너'에 '등록('클래스 Chef'를 '객체'로 생성 및 관리)'시키려면,
            //이 때 필요한 어노테이션이다!
 public class Chef {
 

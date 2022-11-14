@@ -1,6 +1,7 @@
 package com.example.firstproject.api;
 
 
+import com.example.firstproject.annotation.RunningTime;
 import com.example.firstproject.dto.CommentDto;
 import com.example.firstproject.service.CommentSerivce;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +83,7 @@ public class CommentApiController {
     //[ POST ]: '새로운 댓글을 작성'하는 요청. 23강 15:35~
     @PostMapping("/api/articles/{articleId}/comments") //'요청 URL'에 'articleId'를 거친 이후에, 'comments'로 들어갈 수 있도록
                                                           //설계했으니, 당연히! 'articleId'에 대한 정보를 아래 로직에 주어야 한다!
-        public ResponseEntity<List<CommentDto>> create(@PathVariable Long articleId,
+        public ResponseEntity <CommentDto> create(@PathVariable Long articleId,
                 @RequestBody CommentDto commentDto){ //'사용자'가, '사용자가 작성한 새로운 댓글 내용'을 'JSON 객체의 body'에 담아서
                                                      //'컨트롤러'에게 전송함. '내용'을 'body'에 담아서 전송했기에,
                                                      //'@RequestBody'가 필요함
@@ -128,7 +129,7 @@ public class CommentApiController {
 
 
         //2.< '결과를 가져온다' >
-        return (updatedDto =! null) ?
+        return (updatedDto != null) ?
              ResponseEntity.status(HttpStatus.OK).body(updatedDto) :
              ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
@@ -140,17 +141,17 @@ public class CommentApiController {
 
 //======================================================================================================================
 
-    //[ 댓글 삭제 ] : '기존의 댓글을 삭제'하는 요청. 23강 34:30~
+    //[ DELETE ] : '기존의 댓글을 삭제'하는 요청. 23강 34:30~
+    @RunningTime
     @DeleteMapping("api/comments/{id}")
     public ResponseEntity<CommentDto> delete(@PathVariable Long id){ //'삭제 요청'이기에, '사용자'로부터 받을 'JSON 객체'도 없고
                                                                      //따라서, 당연히 '@RequestBody'도 필요없다!
 
-        CommentDto deletedDto = commentService.delete(id);
+        CommentDto deletedDto = commentSerivce.delete(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(deletedDto);
 
 
-        return null;
     }
 
 

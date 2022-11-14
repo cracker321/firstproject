@@ -6,6 +6,7 @@ import com.example.firstproject.entity.Article;
 import com.example.firstproject.entity.Comment;
 import com.example.firstproject.repository.ArticleRepository;
 import com.example.firstproject.repository.CommentRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class CommentSerivce { //댓글 서비스
 
@@ -55,7 +57,7 @@ public class CommentSerivce { //댓글 서비스
 
             Comment c = comments.get(i); //'repository'가 db로부터 가져온 '묶음 댓글 entity'를 하나씩 풀어헤쳐 꺼내어
                                          //'개별 댓글 entity'로 변환시켜준다.
-            CommentDto commentDto = CommentDto.createCommentDto(c); //- '클래스 CommentDto' 내부에 'entity --> dto 변환시키는
+            CommentDto commentDto = CommentDto.toCommentDto(c); //- '클래스 CommentDto' 내부에 'entity --> dto 변환시키는
                                                                     //메소드인 createCommentDto'를 사전에 하나 만들어두고,
                                                                     //- 이를 통해, '개별 댓글 entity의 집합체인 c'를
                                                                     //'개별 댓글 dto 객체 commentDto'로 변환시켜준다.
@@ -87,6 +89,7 @@ public class CommentSerivce { //댓글 서비스
                                                                      //- 또한, 이 '메소드 create'의 리턴값으로 'dto 객체'를
                                                                      //반환하여 '컨트롤러'에게 전달시켜줘야 하기 때문에
                                                                      //이 '메소드 create의 타입은 CommentDto'이다!
+
 
         //1.< 'service'는 'repository'에게 명령하여 db로 접근해서 '사용자가 보낸 새롭게 생성한 댓글이 달린 특정 게시글의 정보와
         //  게시글 id가 담긴 dto 객체'에 대응하는 'entity 형식 게시글'이 db에 존재하는지 여부를 파악해서,
@@ -120,6 +123,7 @@ public class CommentSerivce { //댓글 서비스
         //  이러이러해요!'라는 정보를, 'service'에서 'dto 객체'로 변환시켜주고, 이를 '컨트롤러'에서 '사용자'에게 'JSON 객체'로 전달해주는 흐름이다!
         //  Postman에서 이를 'JSON 객체' 형태로 확인 가능!
         return CommentDto.toCommentDto(created);
+
     }
 
 //======================================================================================================================
@@ -147,7 +151,7 @@ public class CommentSerivce { //댓글 서비스
 
         //< 댓글 수정작업 >
         //3.< db로부터 수정되어야 할 기존 댓글을 가져왔다면, 이제 댓글 수정작업 로직 시작 >: 'db 내부에서' '수정작업 진행'함.
-        target.patch(commentDto) //'기존 댓글 내용'을 '새로운 댓글 내용'으로 수정해주는 '메소드 patch'는 'Comment 타입'이기 때문에,
+        target.patch(commentDto); //'기존 댓글 내용'을 '새로운 댓글 내용'으로 수정해주는 '메소드 patch'는 'Comment 타입'이기 때문에,
                                  //'메소드 patch'를 '클래스 Comment'에 작성해줌.
 
 
@@ -183,7 +187,7 @@ public class CommentSerivce { //댓글 서비스
         //2.< db에 '해당 댓글 entity'가 없는 경우, 내가 임의로 강제로 예외 발생시키는 구문 작성 >
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("댓글 삭제 실패! '사용자가 보낸 요청 URL 속의 id'에 대응되는" +
-                        "id가 db 속에 없습니다");
+                        "id가 db 속에 없습니다"));
 
 
         //< 댓글 삭제작업 >
