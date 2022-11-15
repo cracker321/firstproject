@@ -13,7 +13,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> { //'<Co
                                                                           //'Long': '관리할 entity'인 'Comment'의
                                                                           //        'PK의 타입'
 
-    //< '특정 게시글(article)'에 달린 '모든 댓글들'을 '조회'하기 > : '쿼리문으로 수행하는 방식'
+    //< '특정 게시글(article)'에 달린 '모든 댓글들'을 '조회'하기 > : '쿼리문으로 수행하는 방식'. Native Query 방식.
     @Query(value =                              //우리가 '수행시킬 쿼리문'을 여기에 입력시킴
             "SELECT *" +
             " FROM comment" +
