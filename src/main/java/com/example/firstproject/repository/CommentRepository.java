@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+//'ropository'에는 'db와 연동하는 코드들'이 작성됨
 //'JpaRepository':  '페이징'과 'sorting'도 다 가능한 repository임
 
 public interface CommentRepository extends JpaRepository<Comment, Long> { //'<Comment, Long id>'
